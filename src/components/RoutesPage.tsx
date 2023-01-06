@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import About from './pages/About.tsx'
+import About from './pages/About'
 import Home from './pages/Home'
 import Pricing from './pages/Pricing'
 
