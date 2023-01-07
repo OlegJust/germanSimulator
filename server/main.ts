@@ -3,21 +3,33 @@ import apiRouter from './routes/api.js'
 import cors from 'cors'
 const app = express()
 
-
 // **** Set basic express settings **** //
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://localhost:000']
+    origin: ['http://localhost:3000']
   })
 )
 
 app.use('/api', apiRouter)
 
 app.get('/api', (req: Request, res: Response) => {
-  res.json({ post: 2 })
+  res.json({ server: true })
+})
+
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+app.use(express.static(path.join(__dirname, '..', 'build')))
+app.use(express.static('public'))
+
+app.use((req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'))
 })
 
 app.listen(9000, () => {
