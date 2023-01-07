@@ -1,9 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios, { AxiosResponse } from 'axios'
+import Button from '@mui/material/Button'
+import { IVerb } from '@interface/database'
 
 function Home() {
-  function sayHello() {
-    console.log('Hello friend')
+  const [response, setResponse] = useState<AxiosResponse<IVerb> | null>(null)
+  const verb: IVerb = {
+    level: 1,
+    content: 'kommen',
+    translation: 'to come',
+    exception: false,
+    ich: 'komme',
+    du: 'kommst',
+    erEsSie: 'kommt',
+    wir: 'kommen',
+    ihr: 'kommt',
+    sie: 'kommen'
   }
-  return <h2>Home</h2>
+  const handleClick = () => {
+    axios
+      .post<IVerb>('http://localhost:9000/api/verb', verb)
+      .then((response) => setResponse(response))
+      .catch((error) => console.error(error))
+  }
+  return (
+    <>
+      <h2>Home</h2>
+      <Button onClick={handleClick} variant="contained">
+        Contained
+      </Button>
+    </>
+  )
 }
 export default Home
