@@ -19,7 +19,7 @@ function Home() {
   }
   const handleClick = () => {
     axios
-      .post<IVerb>('http://localhost:9000/api/verb', verb)
+      .post<IVerb>('/verb', verb)
       .then((response) => setResponse(response))
       .catch((error) => console.error(error))
   }
